@@ -101,7 +101,7 @@ const ORDER2=[
  ['설','雪'],['정','庭'],['위','爲'],['도','導'],['사','師'],['인','引'],['여','汝'],['귀','歸'],['현','鉉'],['로','路']
 ];
 const ORDER=[...ORDER1,...ORDER2];
-let S=null, page='home', view='intro', founderDraft='', locationDraft='청운산', policyDraft='orthodox', focusBeforeDialog=null;
+let S=null, page='home', view='intro', founderDraft='', locationDraft='청운', policyDraft='orthodox', focusBeforeDialog=null;
 const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -120,8 +120,8 @@ const findDisc=id=>S.members.find(d=>d.id===Number(id));
 const nameOfManual=id=>{const [r,c]=id.split('-').map(Number);return MANUALS[r]?.[c]||'미상 무공';};
 const ownedStars=id=>S.manuals[id]||0;
 const manualTierForDisc=d=>REALM_MANUAL[Math.min(d.realm,REALM_MANUAL.length-1)];
-const placeBase=raw=>$.trim(raw).replace(/파$/,'').trim();
-const sectTitle=raw=>placeBase(raw)+'파';
+const placeBase=raw=>$.trim(raw);
+const sectTitle=raw=>{const base=placeBase(raw);return base?base+(Array.from(base).length===1?'산파':'파'):'';};
 // 항렬은 문파 창설 후 누적 20년마다 전환한다. 장문인 교체 및 이전 항렬의 성년 여부와 무관하다.
 const absoluteRecruitmentGeneration=()=>Math.floor(S.totalMonths/240)+1;
 // gen은 장문인 재임별 운영 항렬이며 origin이 실제 문파의 고유 항렬 번호이다.
@@ -175,7 +175,7 @@ function refreshTitles(){for(let g=1;g<=3;g++){const d=head(g);if(!d)continue;co
 function legitimacy(d){if(!d||d.gen!==1)return 0;let score=27;if(d.honors.includes('G3'))score+=20;if(d.honors.includes('G2'))score+=20;if(d.honors.includes('D1'))score+=15;score+=Math.min(18,Math.floor(d.heirMonths/12)*3);if(d.honors.join('/').includes('G3/G2/D1'))return 100;return clamp(score,5,98);}
 function makeNew(name,place,policy){S={v:4,recruitmentInterval:240,sect:sectTitle(place),leader:{name,ageMonths:240,realm:0,dynasty:1,stats:{내공:15,근력:13,민첩:14,체력:13,통찰:12}},useLineage:null,lineage:{},totalMonths:0,cycleMonths:0,gold:4500,scrolls:35,scrollPart:0,stones:12,herbs:0,pills:0,policy,allowPolicy:false,unrest:0,align:0,fame:0,manuals:{'0-0':1,'0-1':1},buildings:{hall:1,yard:1,books:1,money:1,heal:1,dorm:1},members:[],elders:[],nextId:1,heirId:null,party:[],history:[],lastMission:-1,investments:[],pending:null,gameOver:false,crisis:null,healHistory:[],yearlySeed:0};log(S.sect+' 창설. 초대 장문인 '+name+' 취임.','창설');save();render();}
 function save(){try{if(S)localStorage.setItem(KEY,JSON.stringify(S));}catch(e){note('브라우저 저장 공간에 접근할 수 없어 자동 저장이 제한됩니다.');}}
-function load(){try{const value=JSON.parse(localStorage.getItem(KEY)||'null');if(value?.v!==4||!Array.isArray(value.members))return false;S=value;let repaired=false;
+function load(){try{const value=JSON.parse(localStorage.getItem(KEY)||'null');if(value?.v!==4||!Array.isArray(value.members))return false;S=value;let repaired=false;if(typeof S.sect==='string'&&Array.from(S.sect).length===2&&S.sect.endsWith('파')){S.sect=Array.from(S.sect)[0]+'산파';repaired=true;}
  if(S.recruitmentInterval!==240){
   for(const d of S.members){
    const original=Math.floor((Number(d.joinMonth)||0)/240)+1;
@@ -338,15 +338,15 @@ function gameMenu(){showDialog('게임 메뉴',`<div class="btn-row"><button typ
 function welcomeMarkup(step){view=step;$('#welcome').prop('hidden',false);$('#gameApp').prop('hidden',true);let body='';
  if(step==='intro'){body=`<div class="splash"><div class="splash-mark" aria-hidden="true">江</div><p class="eyebrow">江湖結義錄</p><h2 id="welcomeTitle" tabindex="-1">강호결의록</h2><p>문파 키우기</p><p class="hint" lang="en">Chronicles of Jianghu Brotherhood</p><p>스무 살의 무인, 이름 없는 문파를 세우다.<br>제자를 기르고 무학을 전승하여 세월을 견뎌라.</p></div><div class="welcome-btns"><button type="button" class="btn primary wide" data-start="founder">새로운 강호 시작</button>${S?'<button type="button" class="btn wide" data-start="continue">강호일지 이어하기</button>':''}<p class="hint">모바일 전용 · 1턴=1개월 · 자동 저장</p></div>`;}
  else if(step==='founder'){body=`<p class="steps">1 / 2 · 초대 장문인 생성</p><h2 id="welcomeTitle" tabindex="-1">초대 장문인</h2><p class="small">시작 나이 20세 · 시작 경지 삼류</p><div class="field"><label for="founderName">장문인 이름</label><input id="founderName" value="${esc(founderDraft)}" autocomplete="off" maxlength="4" aria-describedby="founderHint"><p class="helper" id="founderHint">장문인 이름은 최대 4글자입니다.</p></div><button type="button" class="btn wide" data-start="reroll">무협식 이름 무작위 생성</button><p class="error" id="founderError" role="alert"></p><div class="welcome-btns"><button type="button" class="btn primary wide" data-start="sect">다음 · 문파 창설</button><button type="button" class="btn wide" data-start="intro">이전</button></div>`;}
- else{body=`<p class="steps">2 / 2 · 문파 창설</p><h2 id="welcomeTitle" tabindex="-1">문파 창설</h2><p class="small">초대 장문인 ${esc(founderDraft)} · 문파 이름은 입력한 거점명에 '파'를 붙여 완성됩니다.</p><div class="field"><label for="placeName">문파 거점명</label><div class="sect-name-field"><input id="placeName" value="${esc(placeBase(locationDraft))}" autocomplete="off" maxlength="12" aria-describedby="placeHint placePreview"><span aria-hidden="true">파</span></div><p class="helper" id="placeHint">예: 화산 입력 → 화산파 (접미사 '파' 자동 적용)</p></div><p class="summary" id="placePreview">문파 이름: ${esc(sectTitle(locationDraft))}</p><div class="field"><label for="firstPolicy">초기 문파 기조</label><select id="firstPolicy">${Object.entries(POLICIES).map(([k,v])=>`<option value="${k}" ${k===policyDraft?'selected':''}>${v.name}</option>`).join('')}</select></div><p class="helper">기조별 세부 수치는 테스트용입니다. 장문인전 5단계부터 세대교체 시 변경할 수 있습니다.</p><p class="error" id="placeError" role="alert"></p><div class="welcome-btns"><button type="button" class="btn primary wide" data-start="play">문파 창설 · 게임 시작</button><button type="button" class="btn wide" data-start="founder">이전</button></div>`;}
+ else{body=`<p class="steps">2 / 2 · 문파 창설</p><h2 id="welcomeTitle" tabindex="-1">문파 창설</h2><p class="small">초대 장문인 ${esc(founderDraft)} · 거점명 1글자는 '산파', 2글자는 '파'를 붙여 문파명을 완성합니다.</p><div class="field"><label for="placeName">문파 거점명</label><div class="sect-name-field"><input id="placeName" value="${esc(placeBase(locationDraft))}" autocomplete="off" maxlength="2" aria-describedby="placeHint placePreview"><span id="sectSuffix" aria-hidden="true">${Array.from(placeBase(locationDraft)).length===1?'산파':'파'}</span></div><p class="helper" id="placeHint">1글자: 화 → 화산파 · 2글자: 금오 → 금오파</p></div><p class="summary" id="placePreview" role="status" aria-live="polite" aria-atomic="true">문파 이름: ${esc(sectTitle(locationDraft))}</p><div class="field"><label for="firstPolicy">초기 문파 기조</label><select id="firstPolicy">${Object.entries(POLICIES).map(([k,v])=>`<option value="${k}" ${k===policyDraft?'selected':''}>${v.name}</option>`).join('')}</select></div><p class="helper">기조별 세부 수치는 테스트용입니다. 장문인전 5단계부터 세대교체 시 변경할 수 있습니다.</p><p class="error" id="placeError" role="alert"></p><div class="welcome-btns"><button type="button" class="btn primary wide" data-start="play">문파 창설 · 게임 시작</button><button type="button" class="btn wide" data-start="founder">이전</button></div>`;}
  $('#welcome').html('<div class="welcome-inner">'+body+'</div>');$('#welcomeTitle').trigger('focus');}
 function startGame(){forceCloseDialog();$('#welcome').prop('hidden',true).empty();$('#gameApp').prop('hidden',false).prop('inert',false);page='home';render();$('#gameMain').trigger('focus');}
 $(function(){load();founderDraft=randNameFake();welcomeMarkup('intro');
  function onStart(key){if(key==='intro'){welcomeMarkup('intro');return;}if(key==='continue'){if(!S){note('저장된 기록이 없습니다.');return;}startGame();return;}if(key==='founder'){welcomeMarkup('founder');return;}if(key==='reroll'){founderDraft=randNameFake();$('#founderName').val(founderDraft);note('무협식 이름을 변경했습니다.');return;}
  if(key==='sect'){const s=$.trim($('#founderName').val());if(!s){$('#founderError').text('장문인 이름을 입력하세요.');$('#founderName').trigger('focus');return;}if(Array.from(s).length>4){$('#founderError').text('장문인 이름은 최대 4글자까지 가능합니다.');$('#founderName').trigger('focus');return;}founderDraft=s;welcomeMarkup('sect');return;}
- if(key==='play'){const s=placeBase($('#placeName').val());if(!s){$('#placeError').text('거점명을 입력하세요. 접미사 파는 자동으로 붙습니다.');$('#placeName').trigger('focus');return;}locationDraft=s;policyDraft=$('#firstPolicy').val();makeNew(founderDraft,locationDraft,policyDraft);startGame();note('문파 창설이 완료되었습니다.');}}
+ if(key==='play'){const s=placeBase($('#placeName').val());if(Array.from(s).length<1||Array.from(s).length>2){$('#placeError').text('거점명은 1~2글자로 입력하세요.');$('#placeName').trigger('focus');return;}locationDraft=s;policyDraft=$('#firstPolicy').val();makeNew(founderDraft,locationDraft,policyDraft);startGame();note('문파 창설이 완료되었습니다.');}}
  $('#welcome').on('click','[data-start]',function(){onStart($(this).attr('data-start'));});
- $('#welcome').on('input','#placeName',function(){const v=placeBase($(this).val());$('#placePreview').text(v?'문파 이름: '+sectTitle(v):'거점명을 입력하세요');$('#placeError').text('');});
+ $('#welcome').on('input','#placeName',function(){const v=placeBase($(this).val());$('#sectSuffix').text(Array.from(v).length===1?'산파':'파');$('#placePreview').text(v?'문파 이름: '+sectTitle(v):'거점명을 입력하세요');$('#placeError').text('');});
  $('#welcome').on('keydown','#founderName,#placeName',function(ev){if(ev.key==='Enter'){ev.preventDefault();onStart($(this).attr('id')==='founderName'?'sect':'play');}});
  $('nav.bottom-nav').on('click','[data-page]',function(){switchPage($(this).attr('data-page'));});
  $('#gameMenuBtn').on('click',gameMenu);
