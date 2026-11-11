@@ -1,0 +1,348 @@
+{
+  "version": "1.1",
+  "format": "PNG RGBA 220x140",
+  "canvas": {
+    "width": 220,
+    "height": 140
+  },
+  "levels": 9,
+  "background": "assets/backgrounds/sect-mountain.webp",
+  "buildings": {
+    "hall": {
+      "name": "장문인전",
+      "function": "중앙 지휘 전각",
+      "visual_identity": "정문/중앙 전각/현판/금장과 적색 깃발",
+      "position_percent": {
+        "x": 50,
+        "y": 12
+      },
+      "stages": [
+        {
+          "level": 1,
+          "name": "공터",
+          "file": "assets/buildings/hall/level-1.png"
+        },
+        {
+          "level": 2,
+          "name": "작은 초옥",
+          "file": "assets/buildings/hall/level-2.png"
+        },
+        {
+          "level": 3,
+          "name": "허름한 거처",
+          "file": "assets/buildings/hall/level-3.png"
+        },
+        {
+          "level": 4,
+          "name": "소박한 집무처",
+          "file": "assets/buildings/hall/level-4.png"
+        },
+        {
+          "level": 5,
+          "name": "단장한 집무처",
+          "file": "assets/buildings/hall/level-5.png"
+        },
+        {
+          "level": 6,
+          "name": "어수선한 장문인전",
+          "file": "assets/buildings/hall/level-6.png"
+        },
+        {
+          "level": 7,
+          "name": "정갈한 장문인전",
+          "file": "assets/buildings/hall/level-7.png"
+        },
+        {
+          "level": 8,
+          "name": "위엄 있는 장문인전",
+          "file": "assets/buildings/hall/level-8.png"
+        },
+        {
+          "level": 9,
+          "name": "역사 깊은 장문인전",
+          "file": "assets/buildings/hall/level-9.png"
+        }
+      ]
+    },
+    "yard": {
+      "name": "연무장",
+      "function": "수련 시설",
+      "visual_identity": "검과 목인/연무 공간/적색 훈련 깃발",
+      "position_percent": {
+        "x": 22.5,
+        "y": 25
+      },
+      "stages": [
+        {
+          "level": 1,
+          "name": "공터",
+          "file": "assets/buildings/yard/level-1.png"
+        },
+        {
+          "level": 2,
+          "name": "흙바닥 수련터",
+          "file": "assets/buildings/yard/level-2.png"
+        },
+        {
+          "level": 3,
+          "name": "허름한 수련장",
+          "file": "assets/buildings/yard/level-3.png"
+        },
+        {
+          "level": 4,
+          "name": "평범한 연무장",
+          "file": "assets/buildings/yard/level-4.png"
+        },
+        {
+          "level": 5,
+          "name": "단장한 연무장",
+          "file": "assets/buildings/yard/level-5.png"
+        },
+        {
+          "level": 6,
+          "name": "번듯한 연무장",
+          "file": "assets/buildings/yard/level-6.png"
+        },
+        {
+          "level": 7,
+          "name": "넓은 연무장",
+          "file": "assets/buildings/yard/level-7.png"
+        },
+        {
+          "level": 8,
+          "name": "웅장한 연무장",
+          "file": "assets/buildings/yard/level-8.png"
+        },
+        {
+          "level": 9,
+          "name": "기백이 서린 연무장",
+          "file": "assets/buildings/yard/level-9.png"
+        }
+      ]
+    },
+    "books": {
+      "name": "비급각",
+      "function": "무공 비급 보관소",
+      "visual_identity": "황금빛 서가/보라색 비급 깃발/경전 함",
+      "position_percent": {
+        "x": 77,
+        "y": 25
+      },
+      "stages": [
+        {
+          "level": 1,
+          "name": "공터",
+          "file": "assets/buildings/books/level-1.png"
+        },
+        {
+          "level": 2,
+          "name": "낡은 책방",
+          "file": "assets/buildings/books/level-2.png"
+        },
+        {
+          "level": 3,
+          "name": "허름한 서고",
+          "file": "assets/buildings/books/level-3.png"
+        },
+        {
+          "level": 4,
+          "name": "평범한 서고",
+          "file": "assets/buildings/books/level-4.png"
+        },
+        {
+          "level": 5,
+          "name": "단장한 서고",
+          "file": "assets/buildings/books/level-5.png"
+        },
+        {
+          "level": 6,
+          "name": "어수선한 비급각",
+          "file": "assets/buildings/books/level-6.png"
+        },
+        {
+          "level": 7,
+          "name": "번듯한 비급각",
+          "file": "assets/buildings/books/level-7.png"
+        },
+        {
+          "level": 8,
+          "name": "웅장한 비급각",
+          "file": "assets/buildings/books/level-8.png"
+        },
+        {
+          "level": 9,
+          "name": "고풍스러운 비급각",
+          "file": "assets/buildings/books/level-9.png"
+        }
+      ]
+    },
+    "money": {
+      "name": "재무각",
+      "function": "재화와 재고 관리 시설",
+      "visual_identity": "금장 문양/동전과 금고/황금빛 깃발",
+      "position_percent": {
+        "x": 78,
+        "y": 41.5
+      },
+      "stages": [
+        {
+          "level": 1,
+          "name": "공터",
+          "file": "assets/buildings/money/level-1.png"
+        },
+        {
+          "level": 2,
+          "name": "작은 곳간",
+          "file": "assets/buildings/money/level-2.png"
+        },
+        {
+          "level": 3,
+          "name": "허름한 창고",
+          "file": "assets/buildings/money/level-3.png"
+        },
+        {
+          "level": 4,
+          "name": "소박한 살림채",
+          "file": "assets/buildings/money/level-4.png"
+        },
+        {
+          "level": 5,
+          "name": "단장한 집무실",
+          "file": "assets/buildings/money/level-5.png"
+        },
+        {
+          "level": 6,
+          "name": "어수선한 재무각",
+          "file": "assets/buildings/money/level-6.png"
+        },
+        {
+          "level": 7,
+          "name": "정돈된 재무각",
+          "file": "assets/buildings/money/level-7.png"
+        },
+        {
+          "level": 8,
+          "name": "번듯한 재무각",
+          "file": "assets/buildings/money/level-8.png"
+        },
+        {
+          "level": 9,
+          "name": "풍요로운 재무각",
+          "file": "assets/buildings/money/level-9.png"
+        }
+      ]
+    },
+    "heal": {
+      "name": "약선당",
+      "function": "치료·연단 시설",
+      "visual_identity": "약탕과 약초 분재/녹색 기와·깃발",
+      "position_percent": {
+        "x": 21.5,
+        "y": 41.5
+      },
+      "stages": [
+        {
+          "level": 1,
+          "name": "공터",
+          "file": "assets/buildings/heal/level-1.png"
+        },
+        {
+          "level": 2,
+          "name": "약초밭",
+          "file": "assets/buildings/heal/level-2.png"
+        },
+        {
+          "level": 3,
+          "name": "허름한 약방",
+          "file": "assets/buildings/heal/level-3.png"
+        },
+        {
+          "level": 4,
+          "name": "평범한 약방",
+          "file": "assets/buildings/heal/level-4.png"
+        },
+        {
+          "level": 5,
+          "name": "단장한 약방",
+          "file": "assets/buildings/heal/level-5.png"
+        },
+        {
+          "level": 6,
+          "name": "어수선한 약선당",
+          "file": "assets/buildings/heal/level-6.png"
+        },
+        {
+          "level": 7,
+          "name": "단장한 약선당",
+          "file": "assets/buildings/heal/level-7.png"
+        },
+        {
+          "level": 8,
+          "name": "번듯한 약선당",
+          "file": "assets/buildings/heal/level-8.png"
+        },
+        {
+          "level": 9,
+          "name": "신비로운 약선당",
+          "file": "assets/buildings/heal/level-9.png"
+        }
+      ]
+    },
+    "dorm": {
+      "name": "제자원",
+      "function": "제자 생활관",
+      "visual_identity": "주거 공간/뜰과 분홍빛 나무/기숙사 깃발",
+      "position_percent": {
+        "x": 50,
+        "y": 53.5
+      },
+      "stages": [
+        {
+          "level": 1,
+          "name": "공터",
+          "file": "assets/buildings/dorm/level-1.png"
+        },
+        {
+          "level": 2,
+          "name": "임시 천막",
+          "file": "assets/buildings/dorm/level-2.png"
+        },
+        {
+          "level": 3,
+          "name": "허름한 초가",
+          "file": "assets/buildings/dorm/level-3.png"
+        },
+        {
+          "level": 4,
+          "name": "비좁은 숙소",
+          "file": "assets/buildings/dorm/level-4.png"
+        },
+        {
+          "level": 5,
+          "name": "평범한 숙소",
+          "file": "assets/buildings/dorm/level-5.png"
+        },
+        {
+          "level": 6,
+          "name": "단장한 숙소",
+          "file": "assets/buildings/dorm/level-6.png"
+        },
+        {
+          "level": 7,
+          "name": "소박한 제자원",
+          "file": "assets/buildings/dorm/level-7.png"
+        },
+        {
+          "level": 8,
+          "name": "번듯한 제자원",
+          "file": "assets/buildings/dorm/level-8.png"
+        },
+        {
+          "level": 9,
+          "name": "쾌적한 제자원",
+          "file": "assets/buildings/dorm/level-9.png"
+        }
+      ]
+    }
+  }
+}
